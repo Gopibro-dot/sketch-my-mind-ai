@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block head_scripts %}
+<script>
+  // Simple function to toggle male/female specific sections
+  function onGenderChange(select) {
+    const val = select.value;
+    if (val === 'Male') {
+      document.getElementById('male-fields').style.display = 'block';
+      document.getElementById('female-fields').style.display = 'none';
+    } else {
+      document.getElementById('male-fields').style.display = 'none';
+      document.getElementById('female-fields').style.display = 'block';
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    const g = document.querySelector('select[name="gender"]');
+    if (g) onGenderChange(g);
+  });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card p-4 shadow-sm">
+      <h3>Generate Sketch</h3>
+      <p class="text-muted">Fill the details below. Leave extras as <code>no</code> if none.</p>
+
+      <form method="POST">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">Gender</label>
+            <select name="gender" class="form-select" onchange="onGenderChange(this)" required>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+
+          <div class="col-md-8">
+            <label class="form-label">Age</label>
+            <input name="age_group" class="form-control" placeholder="e.g., 25-year-old or Young Adult" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Hair</label>
+            <input name="hair" class="form-control" placeholder="long wavy hair">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Face Shape</label>
+            <input name="face_shape" class="form-control" placeholder="oval">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Eyes</label>
+            <input name="eyes" class="form-control" placeholder="big, sharp">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Nose</label>
+            <input name="nose" class="form-control" placeholder="small, pointed">
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Expression</label>
+            <input name="expression" class="form-control" placeholder="smiling / neutral">
+          </div>
+
+          <!-- Male-only fields -->
+          <div id="male-fields" style="display:none;" class="col-12 mt-2">
+            <div class="card card-body bg-light">
+              <h6 class="mb-2">Male details</h6>
+              <div class="row g-2">
+                <div class="col-md-3">
+                  <label class="form-label">Has beard?</label>
+                  <select name="has_beard" class="form-select">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                  </select>
+                </div>
+                <div class="col-md-9">
+                  <label class="form-label">Beard description</label>
+                  <input name="beard_desc" class="form-control" placeholder="e.g., short trimmed beard">
+                </div>
+
+                <div class="col-md-3 mt-2">
+                  <label class="form-label">Has mustache?</label>
+                  <select name="has_mustache" class="form-select">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                  </select>
+                </div>
+                <div class="col-md-9 mt-2">
+                  <label class="form-label">Mustache description</label>
+                  <input name="mustache_desc" class="form-control" placeholder="e.g., thin mustache">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Female-only fields -->
+          <div id="female-fields" style="display:none;" class="col-12 mt-2">
+            <div class="card card-body bg-light">
+              <h6 class="mb-2">Female details</h6>
+              <div class="row g-2">
+                <div class="col-md-3">
+                  <label class="form-label">Has earrings?</label>
+                  <select name="has_earrings" class="form-select">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                  </select>
+                </div>
+                <div class="col-md-9">
+                  <label class="form-label">Earrings description</label>
+                  <input name="earrings_desc" class="form-control" placeholder="e.g., studs, danglers">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 mt-2">
+            <label class="form-label">Extras</label>
+            <input name="extras" class="form-control" placeholder="glasses, hat, necklace — or type 'no'">
+          </div>
+
+          <div class="col-12 mt-3 d-flex gap-2">
+            <button class="btn btn-primary" type="submit">Generate Sketch</button>
+            <button class="btn btn-outline-secondary" type="reset">Reset</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

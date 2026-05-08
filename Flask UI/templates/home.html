@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero card shadow-lg overflow-hidden">
+  <div class="row g-0">
+    <div class="col-md-7 p-5 hero-left">
+      <h1 class="display-6 fw-bold">Turn descriptions into beautiful sketches</h1>
+      <p class="lead">Describe age, hair, face shape and accessories — our AI creates a hand-drawn style pencil portrait and saves it into your gallery.</p>
+
+      <div class="mt-4">
+        {% if session.get('user') %}
+          <a class="btn btn-primary btn-lg me-2" href="{{ url_for('predict') }}">Create a Sketch</a>
+          <a class="btn btn-outline-primary btn-lg" href="{{ url_for('result', username=session.get('user'), filename='') }}">My Gallery</a>
+        {% else %}
+          <a class="btn btn-primary btn-lg me-2" href="{{ url_for('register') }}">Get Started</a>
+          <a class="btn btn-outline-primary btn-lg" href="{{ url_for('login') }}">Log In</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="col-md-5 hero-right d-flex align-items-center justify-content-center p-4">
+      <img src="{{ url_for('static', filename='images/hero-sketch.png') }}" alt="sketch" class="img-fluid" onerror="this.style.display='none'">
+    </div>
+  </div>
+</div>
+
+<div class="row mt-5 g-4">
+  <div class="col-md-4">
+    <div class="card feature-card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Simple Inputs</h5>
+        <p class="card-text">Enter features like age, hair, face shape, expression and accessories. We handle conditional fields for beard, moustache and earrings.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card feature-card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Saved to your account</h5>
+        <p class="card-text">Every generated image is stored under your username so you can view or re-download later.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card feature-card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Fast & configurable</h5>
+        <p class="card-text">We use an optimized text-to-image pipeline. You can generate several variations for the same description.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
